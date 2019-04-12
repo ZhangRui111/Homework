@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1493429760 source:f:\wj\code\code block\c\lexicalanalyer\lexicalanalyer.cpp
+	"LexicalAnalyer.h"
+
+1493429760 f:\wj\code\code block\c\lexicalanalyer\lexicalanalyer.h
+	<stdio.h>
+	<string.h>
+	<Windows.h>
+
+1493430759 source:f:\wj\code\code block\c\lexicalanalyer\main.cpp
+	<stdio.h>
+	<Windows.h>
+	"LexicalAnalyer.h"
+
