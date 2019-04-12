@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1493815377 source:f:\wj\code\code block\c\testshell\testshellfunc.c
+	"testshellfunc.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1493812808 f:\wj\code\code block\c\testshell\testshellfunc.h
+
+1493815465 source:f:\wj\code\code block\c\testshell\testshell.c
+	"testshellfunc.h"
+	<time.h>
+	<stdio.h>
+	<stdlib.h>
+
