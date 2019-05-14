@@ -1,65 +1,7 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-
 from env.maze import Maze
 from DQN_brain import DeepQNetwork
 
-
-def exist_or_create_folder(path_name):
-    flag = False
-    pure_path = os.path.dirname(path_name)
-    if not os.path.exists(pure_path):
-        try:
-            os.makedirs(pure_path)
-            flag = True
-        except OSError:
-            pass
-    return flag
-
-
-def write_to_file(file_path, content, overwrite=False):
-    exist_or_create_folder(file_path)
-    if overwrite is True:
-        with open(file_path, 'w') as f:
-            f.write(str(content))
-    else:
-        with open(file_path, 'a') as f:
-            f.write(str(content))
-
-
-def plot_cost(data, path):
-    data_average = []
-    size = len(data)
-    for i in range(50, size):
-        data_average.append(sum(data[(i-50):i])/50)
-
-    np.save('./logs/data_average_rate.out', np.array(data_average))
-    np.save('./logs/data_rate.out', np.array(data))
-
-    plt.plot(np.arange(len(data_average)), data_average)
-    plt.ylabel('success rate')
-    plt.xlabel('episode')
-    # plt.show()
-    plt.savefig(path)
-    plt.close()
-
-
-def plot_rate(data, path):
-    data_average = []
-    size = len(data)
-    for i in range(50, size):
-        data_average.append(sum(data[(i-50):i])/50)
-
-    np.save('./logs/data_average.out', np.array(data_average))
-    np.save('./logs/data.out', np.array(data))
-
-    plt.plot(np.arange(len(data_average)), data_average)
-    plt.ylabel('episode steps')
-    plt.xlabel('episode')
-    # plt.show()
-    plt.savefig(path)
-    plt.close()
+from utils import plot_cost, plot_rate
 
 
 def run_maze():
@@ -67,23 +9,24 @@ def run_maze():
     render_time = 0
     episode_step_holder = []
     success_holder = []
+    base_path = './logs/dqn/'
 
-    for episode in range(400):
+    for i_episode in range(400):
         episode_step = 0
-        observation = env.reset().ravel()
+        s = env.reset().ravel()
 
         while True:
             env.render(render_time)
-            action = RL.choose_action(observation)
-            observation_, reward, done, info = env.step(action)
-            observation_ = observation_.ravel()
+            action = RL.choose_action(s)
+            s_, reward, done, info = env.step(action)
+            s_ = s_.ravel()
             # print('action:{0} | reward:{1} | done: {2}'.format(action, reward, done))
-            RL.store_transition(observation, action, reward, observation_)
+            RL.store_transition(s, action, reward, s_)
 
             if step > 200:
                 RL.learn()
 
-            observation = observation_
+            s = s_
             step += 1
             episode_step += 1
 
@@ -91,7 +34,7 @@ def run_maze():
                 done = True
 
             if done:
-                print('{0} -- {1} -- {2}'.format(episode, info, episode_step))
+                print('{0} -- {1} -- {2}'.format(i_episode, info, episode_step))
                 if info != 'success':
                     episode_step = 500
                     reward = -1
@@ -104,12 +47,12 @@ def run_maze():
 
     # end of game
     print('game over')
-    save_path = RL.saver.save(RL.sess, './logs/model_dqn.ckpt')
+    save_path = RL.saver.save(RL.sess, base_path + 'model_dqn.ckpt')
     print("Model saved in path: {}".format(save_path))
     RL.sess.close()
     env.destroy()
-    plot_cost(episode_step_holder, './logs/episode_steps.png')
-    plot_rate(success_holder, './logs/success_rate.png')
+    # plot_cost(episode_step_holder, base_path + 'episode_steps.png')
+    plot_rate(success_holder, base_path + 'success_rate.png')
 
 
 def main():
@@ -119,7 +62,7 @@ def main():
         n_actions=4,
         n_features=25,
         restore_path=None,
-        # restore_path='./logs/model_dqn.ckpt',
+        # restore_path=base_path + 'model_dqn.ckpt',
         learning_rate=0.005,
         reward_decay=0.9,
         e_greedy=0.95,
