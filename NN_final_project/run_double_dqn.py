@@ -9,7 +9,7 @@ def run_maze():
     render_time = 0
     episode_step_holder = []
     success_holder = []
-    base_path = './logs/dqn/'
+    base_path = './logs/double_dqn/'
 
     for i_episode in range(400):
         episode_step = 0

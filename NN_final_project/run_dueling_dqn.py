@@ -1,5 +1,5 @@
 from env.maze import Maze
-from DQN_brain import DeepQNetwork
+from Dueling_DQN_brain import DeepQNetwork
 
 from utils import plot_cost, plot_rate
 
@@ -9,7 +9,7 @@ def run_maze():
     render_time = 0
     episode_step_holder = []
     success_holder = []
-    base_path = './logs/dqn/'
+    base_path = './logs/dueling_dqn/'
 
     for i_episode in range(400):
         episode_step = 0

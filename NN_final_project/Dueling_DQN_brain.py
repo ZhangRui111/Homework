@@ -50,13 +50,15 @@ class DeepQNetwork:
         self.sess = tf.Session()
 
         if output_graph:
-            tf.summary.FileWriter('./logs/dqn/', self.sess.graph)
+            tf.summary.FileWriter('./logs/dueling_dqn/', self.sess.graph)
 
         self.sess.run(tf.global_variables_initializer())
         self.saver = tf.train.Saver()
+
         if restore_path is not None:
             self.saver.restore(self.sess, restore_path)
             print("Model restore in path: {}".format(restore_path))
+
         self.cost_his = []
 
     def _build_net(self):
@@ -69,12 +71,16 @@ class DeepQNetwork:
         # ------------------ build evaluate_net ------------------
         with tf.variable_scope('eval_net'):
             e1 = tf.contrib.layers.fully_connected(self.s, 32, activation_fn=tf.nn.relu)
-            self.q_eval = tf.contrib.layers.fully_connected(e1, self.n_actions, activation_fn=None)
+            eval_v = tf.contrib.layers.fully_connected(e1, 1, activation_fn=None)
+            eval_a = tf.contrib.layers.fully_connected(e1, self.n_actions, activation_fn=None)
+            self.q_eval = eval_v + (eval_a - tf.reduce_mean(eval_a, axis=1, keepdims=True))
 
         # ------------------ build target_net ------------------
         with tf.variable_scope('target_net'):
             t1 = tf.contrib.layers.fully_connected(self.s_, 32, activation_fn=tf.nn.relu)
-            self.q_next = tf.contrib.layers.fully_connected(t1, self.n_actions, activation_fn=None)
+            target_v = tf.contrib.layers.fully_connected(t1, 1, activation_fn=None)
+            target_a = tf.contrib.layers.fully_connected(t1, self.n_actions, activation_fn=None)
+            self.q_next = target_v + (target_a - tf.reduce_mean(target_a, axis=1, keepdims=True))
 
         with tf.variable_scope('q_target'):
             q_target = self.r + self.gamma * tf.reduce_max(self.q_next, axis=1, name='Q_max_s_')    # shape=(None, )
@@ -92,18 +98,16 @@ class DeepQNetwork:
         if not hasattr(self, 'memory_counter'):
             self.memory_counter = 0
         transition = np.hstack((s, [a, r], s_))
-        # replace the old memory with new memory
         index = self.memory_counter % self.memory_size
         self.memory[index, :] = transition
         self.memory_counter += 1
 
     def choose_action(self, observation):
         observation = observation[np.newaxis, :]
+        actions_value = self.sess.run(self.q_eval, feed_dict={self.s: observation})
+        action = np.argmax(actions_value)
 
-        if np.random.uniform() < self.epsilon:
-            actions_value = self.sess.run(self.q_eval, feed_dict={self.s: observation})
-            action = np.argmax(actions_value)
-        else:
+        if np.random.uniform() > self.epsilon:  # choosing action
             action = np.random.randint(0, self.n_actions)
         return action
 
