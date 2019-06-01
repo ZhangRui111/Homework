@@ -3,8 +3,10 @@
 
 # My configurations:
 **/data/*
+**/pretrained_model/*
 **/.idea/*
 **/logs/*
+**/backup/*
 *.iml
 *.txt
 *.xml
