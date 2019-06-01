@@ -58,6 +58,7 @@ flags.DEFINE_bool(
 
 # Changed
 # # # # # Key Point # # # # #
+# if max_seq_length is so large, then OOM may occurs.
 flags.DEFINE_integer(
     "max_seq_length", 256,
     "The maximum total input sequence length after WordPiece tokenization. "
@@ -448,7 +449,7 @@ def model_fn_builder(bert_config, num_labels, init_checkpoint, learning_rate,
                      use_one_hot_embeddings):
     """Returns `model_fn` closure for TPUEstimator."""
 
-    def model_fn(features, mode):  # pylint: disable=unused-argument
+    def model_fn(features, labels, mode, params):  # pylint: disable=unused-argument
         """The `model_fn` for TPUEstimator."""
 
         tf.logging.info("*** Features ***")
