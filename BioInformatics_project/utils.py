@@ -147,7 +147,8 @@ def write_txt_lines(file_path, data_list, overwrite=False):
 def pre_processing():
     """
     Final processing of the raw data to divide the
-    train_genes, train_labels, test_genes, test_labels.
+    train_genes, train_labels, test_genes, test_labels
+    and save them to files.
     """
     genes = np.loadtxt('./data/genes.out')
     # genes = np.zeros((10, 200))
@@ -181,7 +182,58 @@ def pre_processing():
     return train_genes, train_labels, test_genes, test_labels
 
 
+def load_data_from_files():
+    """
+    Load pre-processed data from files.
+    Called after pre_processing().
+    """
+    train_genes = np.loadtxt('./data/train_genes.out')
+    train_labels = np.loadtxt('./data/train_labels.out')[:, np.newaxis]
+    test_genes = np.loadtxt('./data/test_genes.out')
+    test_labels = np.loadtxt('./data/test_labels.out')[:, np.newaxis]
+    print(train_genes.shape)
+    print(train_labels.shape)
+    print(test_genes.shape)
+    print(test_labels.shape)
+
+    return train_genes, train_labels, test_genes, test_labels
+
+
+def sklearn_pca():
+    """
+    Apply PCA to train_genes, train_labels, test_genes,
+    test_labels and save them to files.
+    """
+    train_genes, train_labels, test_genes, test_labels = load_data_from_files()
+
+    # # # # # # # # # # Under construction. # # # # # # # # # #
+    #              PCA to reduce dimensionality               #
+    # # # # # # # # # # Under construction. # # # # # # # # # #
+
+    np.savetxt('./data/pca_data/train_genes_pca.out', train_genes_pca, fmt='%.9f')
+    np.savetxt('./data/pca_data/train_labels_pca.out', train_labels_pca, fmt='%d')
+    np.savetxt('./data/pca_data/test_genes_pca.out', test_genes_pca, fmt='%.9f')
+    np.savetxt('./data/pca_data/test_labels_pca.out', test_labels_pca, fmt='%d')
+
+    return train_genes_pca, train_labels_pca, test_genes_pca, test_labels_pca
+
+
+def load_pca_data_from_files():
+    """ Load pca data from files. Called after sklearn_pca(). """
+    train_genes_pca = np.loadtxt('./data/pca_data/train_genes_pca.out')
+    train_labels_pca = np.loadtxt('./data/pca_data/train_labels_pca.out')
+    test_genes_pca = np.loadtxt('./data/pca_data/test_genes_pca.out')
+    test_labels_pca = np.loadtxt('./data/pca_data/test_labels_pca.out')
+    print(train_genes_pca.shape)
+    print(train_labels_pca.shape)
+    print(test_genes_pca.shape)
+    print(test_labels_pca.shape)
+
+    return train_genes_pca, train_labels_pca, test_genes_pca, test_labels_pca
+
+
 def main():
+    # Data processing.
     # data = read_txt_line('./data/raw_data/microarray.original.txt', limitation=10)
     # data = read_txt_lines('./data/raw_data/microarray.original.txt')
     # data = read_txt_line('./data/raw_data/E-TABM-185.sdrf.txt', limitation=100)
@@ -192,14 +244,9 @@ def main():
     # process_labels(data, index=5)
     # pre_processing()
 
-    train_genes = np.loadtxt('./data/train_genes.out')
-    train_labels = np.loadtxt('./data/train_labels.out')[:, np.newaxis]
-    test_genes = np.loadtxt('./data/test_genes.out')
-    test_labels = np.loadtxt('./data/test_labels.out')[:, np.newaxis]
-    print(train_genes.shape)
-    print(train_labels.shape)
-    print(test_genes.shape)
-    print(test_labels.shape)
+    # Apply PCA to train_genes, train_labels, test_genes, test_labels.
+    sklearn_pca()
+    train_genes, train_labels, test_genes, test_labels = load_pca_data_from_files()
 
 
 if __name__ == '__main__':
