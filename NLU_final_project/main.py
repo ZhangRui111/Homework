@@ -34,9 +34,6 @@ flags.DEFINE_string(
     "This specifies the model architecture.")
 
 # Changed
-flags.DEFINE_string("task_name", "mnli", "The name of the task to train.")
-
-# Changed
 flags.DEFINE_string("vocab_file", "./pretrained_model/bert_base/vocab.txt",
                     "The vocabulary file that the BERT model was trained on.")
 
