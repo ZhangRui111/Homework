@@ -1,0 +1,30 @@
+GSM79288.CEL
+organism_part
+frozen
+  
+  
+  
+  
+breast tumor
+  
+Homo sapiens
+  
+Labeled4999 biotin
+synthetic_DNA
+biotin
+Hyb_4999
+A-AFFY-33
+GSM79288.CEL
+GSM79288.CEL
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.raw.132.zip
+P-TABM-1006
+hgu133a_gcrma_reduced.mx
+  
+E-TABM-185.processed.txt
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.processed.2.zip
+  
+  
+  
+  
+breast tumor
+    

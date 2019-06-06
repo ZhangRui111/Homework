@@ -1,0 +1,30 @@
+GSM20719.CEL
+organism_part
+blood
+  
+"blasts, mononuclear cells"
+  
+  
+acute myeloid leukemia
+bone marrow
+Homo sapiens
+  
+Labeled2999 biotin
+synthetic_DNA
+biotin
+Hyb_2999
+A-AFFY-33
+GSM20719.CEL
+GSM20719.CEL
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.raw.86.zip
+P-TABM-1006
+hgu133a_gcrma_reduced.mx
+  
+E-TABM-185.processed.txt
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.processed.2.zip
+  
+"blasts, mononuclear cells"
+  
+  
+acute myeloid leukemia
+bone marrow

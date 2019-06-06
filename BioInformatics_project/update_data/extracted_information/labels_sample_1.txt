@@ -1,0 +1,30 @@
+1102960533.cel
+organism_part
+fresh_sample
+  
+naive CD4 T cell
+  
+  
+  
+blood
+Homo sapiens
+  
+Labeled1 biotin
+synthetic_DNA
+biotin
+Hyb_1
+A-AFFY-33
+1102960533.cel
+1102960533.cel
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.raw.1.zip
+P-TABM-1006
+hgu133a_gcrma_reduced.mx
+  
+E-TABM-185.processed.txt
+ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/experiment/TABM/E-TABM-185/E-TABM-185.processed.2.zip
+  
+naive CD4 T cell
+  
+  
+  
+blood

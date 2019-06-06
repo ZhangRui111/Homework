@@ -60,7 +60,7 @@ def build_model(regu_lambda, if_nm=True):
         loss = -tf.reduce_sum(labels * tf.log(tf.clip_by_value(y_pred_softmax, 1e-10, 1.0))) + \
                regu_lambda * tf.nn.l2_loss(w) + regu_lambda * tf.nn.l2_loss(b)
     else:
-        loss = tf.reduce_sum(labels * tf.log(tf.clip_by_value(y_pred_softmax, 1e-10, 1.0)))
+        loss = -tf.reduce_sum(labels * tf.log(tf.clip_by_value(y_pred_softmax, 1e-10, 1.0)))
     train_step = tf.train.RMSPropOptimizer(LEARNING_RATE).minimize(loss)
     # accuracy evaluation
     correct_prediction = tf.equal(tf.argmax(y_pred_softmax, 1), tf.argmax(labels, 1))

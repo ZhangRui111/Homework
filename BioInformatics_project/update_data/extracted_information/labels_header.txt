@@ -1,0 +1,30 @@
+Source Name
+Material Type
+Characteristics [BioSourceType]
+Characteristics [CellLine]
+Characteristics [CellType]
+Characteristics [DevelopmentalStage]
+Characteristics [DiseaseStage]
+Characteristics [DiseaseState]
+Characteristics [OrganismPart]
+Characteristics [Organism]
+Characteristics [Sex]
+Labeled Extract Name
+Material Type
+Label
+Hybridization Name
+Array Design REF
+Scan Name
+Array Data File
+Comment [ArrayExpress FTP file]
+Protocol REF
+Normalization Name
+Comment[Normalization Type]
+Derived Array Data Matrix File
+Comment [Derived ArrayExpress FTP file]
+Factor Value [CELLLINE]
+Factor Value [CELLTYPE]
+Factor Value [DEVELOPMENTALSTAGE]
+Factor Value [DISEASESTAGE]
+Factor Value [DISEASESTATE]
+Factor Value [ORGANISMPART]
