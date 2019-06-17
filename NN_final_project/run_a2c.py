@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from env.maze import Maze
+from env.square_maze import Maze
 from utils import plot_cost, plot_rate
 from A2C_brain import Actor, Critic
 
