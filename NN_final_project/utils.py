@@ -99,6 +99,10 @@ def plot_cmp(clip=False):
     double_dqn_line = np.load('./logs/backup/double_dqn/mean_result.npy')
     dueling_dqn_line = np.load('./logs/backup/dueling_dqn/mean_result.npy')
 
+    # print('dqn -- {}'.format(np.mean(dqn_line[300:])))
+    # print('double dqn -- {}'.format(np.mean(double_dqn_line[300:])))
+    # print('dueling dqn -- {}'.format(np.mean(dueling_dqn_line[300:])))
+
     if clip:
         plt.plot(np.arange(len(dqn_line[:200])), dqn_line[:200], c='xkcd:black', label='dqn')
         plt.plot(np.arange(len(double_dqn_line[:200])), double_dqn_line[:200], c='xkcd:green', label='double_dqn')
@@ -118,12 +122,12 @@ def plot_cmp(clip=False):
     plt.close()
 
 
-# def main():
-#     plot_rate_average('./logs/backup/dqn/', 'xkcd:silver', 'xkcd:black')
-#     plot_rate_average('./logs/backup/double_dqn/', 'xkcd:yellowgreen', 'xkcd:green')
-#     plot_rate_average('./logs/backup/dueling_dqn/', 'xkcd:gold', 'xkcd:red')
-#     # plot_cmp(clip=True)
-#
-#
-# if __name__ == '__main__':
-#     main()
+def main():
+    # plot_rate_average('./logs/backup/dqn/', 'xkcd:silver', 'xkcd:black')
+    # plot_rate_average('./logs/backup/double_dqn/', 'xkcd:yellowgreen', 'xkcd:green')
+    # plot_rate_average('./logs/backup/dueling_dqn/', 'xkcd:gold', 'xkcd:red')
+    plot_cmp(clip=True)
+
+
+if __name__ == '__main__':
+    main()
